@@ -1,8 +1,109 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<style>
+    #painelUsuarios {
+        max-height: 450px;
+        overflow-y: auto;
+    }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    .lista-usuarios li {
+        padding: 4px 0;
+    }
+
+        .lista-usuarios li:hover {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+
+    .mensagem {
+        max-width: 75%;
+        padding: 10px 15px;
+        border-radius: 20px;
+        margin-bottom: 10px;
+        word-break: break-word;
+        position: relative;
+        display: inline-block;
+        clear: both;
+    }
+
+        .mensagem.eu {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            align-self: flex-end;
+            float: right;
+        }
+
+        .mensagem.outro {
+            background-color: #f1f1f1;
+            color: #333;
+            align-self: flex-start;
+            float: left;
+        }
+
+    #areaMensagens {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mensagem-sistema {
+        text-align: center;
+        font-style: italic;
+        color: #6c757d;
+        margin: 10px 0;
+    }
+</style>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-3 mb-4">
+            <div id="painelUsuarios" class="usuarios card shadow-sm rounded-3">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0 text-primary">
+                        <i class="bi bi-people-fill me-2"></i>Online
+                    </h5>
+                </div>
+                <div class="card-body p-2">
+                    <ul id="usuariosOnline" class="lista-usuarios list-unstyled
+                        mb-0">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-9">
+            <div class="card shadow-lg rounded-3">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>
+                        Chat em Tempo Real - Sala: <span id="nomeSala"></span>
+                    </h4>
+                    <small id="usuario"></small>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div id="areaMensagens" class="mb-3 p-3 border rounded"
+                             style="height: 350px; overflow-y: auto;">
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center position-relative">
+                        <div class="flex-grow-1 me-2">
+                            <input type="text" id="mensagem"
+                                   class="form-control" placeholder="Digite sua mensagem..." />
+                        </div>
+                        <button type="button" id="emoji-btn" class="btn
+                            btn-light position-absolute" style="right: 80px; background: white;">
+                            😊
+                        </button>
+                        <div id="emoji-picker" style="position: absolute;
+                        bottom: 40px; right: 80px;"></div>
+                        <button id="enviar" class="btn btn-success">
+                            <i class="bi bi-send-fill"></i> Enviar
+                        </button>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button id="sair" class="btn btn-danger w-50">
+                            Sair da
+                            Sala
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<audio id="notificacaoAudio" src="/sounds/bip.wav" preload="auto"></audio>
